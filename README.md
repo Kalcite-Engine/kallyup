@@ -30,17 +30,14 @@ curl -fsSL https://raw.githubusercontent.com/Kalcite-Engine/kallyup/main/scripts
 ```
 
 ```powershell
-# Windows PowerShell
-irm https://raw.githubusercontent.com/Kalcite-Engine/kallyup/main/scripts/kallyup-bootstrap.ps1 | iex
-# Or, after saving the script locally:
-.\kallyup-bootstrap.ps1 install developer
+# Windows PowerShell: install the developer profile in the current session
+irm https://raw.githubusercontent.com/Kalcite-Engine/kallyup/main/scripts/kallyup-bootstrap.ps1 | iex; kallyup install developer
 ```
 
-The PowerShell pipeline cannot safely forward arguments, so use the saved
-script form for `install minimal`, `install developer`, or `install full`.
-Linux package managers supported by the shell launcher are APT, DNF, Pacman,
-and Zypper. On macOS, Apple requires the Command Line Tools dialog to be
-completed once before the script can continue.
+Replace `developer` with `minimal` or `full` to select another profile. Linux
+package managers supported by the shell launcher are APT, DNF, Pacman, and
+Zypper. On macOS, Apple requires the Command Line Tools dialog to be completed
+once before the script can continue.
 
 ## Platform notes
 

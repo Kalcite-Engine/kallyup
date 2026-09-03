@@ -54,4 +54,6 @@ $kallyup = Join-Path $CargoHome 'bin\kallyup.exe'
 if (-not (Test-Path $kallyup)) { throw 'Kallyup was not installed.' }
 if ($KallyupArguments.Count -eq 0) { $KallyupArguments = @('list') }
 & $kallyup @KallyupArguments
-exit $LASTEXITCODE
+if ($LASTEXITCODE -ne 0) {
+    throw "Kallyup exited with code $LASTEXITCODE."
+}
