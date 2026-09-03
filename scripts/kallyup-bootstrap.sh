@@ -92,9 +92,12 @@ ensure_rust() {
 ensure_system_requirements
 ensure_rust
 
-cargo install --git "$KALLYUP_REPOSITORY" --branch main --locked --force
+KALLYUP_SOURCE=$(mktemp -d "${TMPDIR:-/tmp}/kallyup-bootstrap.XXXXXX")
+trap 'rm -rf "$KALLYUP_SOURCE"' EXIT HUP INT TERM
+git clone --depth 1 --branch main "$KALLYUP_REPOSITORY" "$KALLYUP_SOURCE"
+cargo install --path "$KALLYUP_SOURCE" --locked --force
 
 if [ "$#" -eq 0 ]; then
     set -- list
 fi
-exec "$CARGO_HOME/bin/kallyup" "$@"
+"$CARGO_HOME/bin/kallyup" "$@"
