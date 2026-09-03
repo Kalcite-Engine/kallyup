@@ -1,0 +1,13 @@
+[package]
+name = "kallyup"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "KLC-first installer for the Kalcite toolchain"
+repository = "https://github.com/Kalcite-Engine/kallyup"
+
+[build-dependencies]
+kalcite-syntax = { git = "https://github.com/Kalcite-Engine/kalcite.git", rev = "ebac908abbec9a1a7b0faa250c4f1ee3a294defd" }
+kalcite-hir = { git = "https://github.com/Kalcite-Engine/kalcite.git", rev = "ebac908abbec9a1a7b0faa250c4f1ee3a294defd" }
+kalcite-mir = { git = "https://github.com/Kalcite-Engine/kalcite.git", rev = "ebac908abbec9a1a7b0faa250c4f1ee3a294defd" }
+kalcite-backend-rust = { git = "https://github.com/Kalcite-Engine/kalcite.git", rev = "ebac908abbec9a1a7b0faa250c4f1ee3a294defd" }

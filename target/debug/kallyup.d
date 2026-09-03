@@ -1,0 +1,1 @@
+/Users/drapnard/Downloads/kallyup/target/debug/kallyup: /Users/drapnard/Downloads/kallyup/build.rs /Users/drapnard/Downloads/kallyup/src/kallyup_core.klc /Users/drapnard/Downloads/kallyup/src/main.rs /Users/drapnard/Downloads/kallyup/target/debug/build/kallyup-ea328c7ddea92adf/out/kallyup_core.rs

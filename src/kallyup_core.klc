@@ -1,0 +1,17 @@
+// Kallyup's product policy lives in KLC. Rust only executes the selected host
+// operations: Cargo/Git invocation and optional PATH persistence.
+// 1=core, 2=Kally, 4=LSP, 8=editor.
+public u32 kallyup_profile_components(u32 profile) {
+    if profile == 1 { return 3; }       // minimal: Kalcite + Kally
+    if profile == 2 { return 7; }       // developer: minimal + LSP
+    if profile == 3 { return 15; }      // full: developer + editor
+    return 0;
+}
+
+public bool kallyup_profile_valid(u32 profile) {
+    return profile >= 1 && profile <= 3;
+}
+
+public bool kallyup_component_enabled(u32 components, u32 component) {
+    return (components & component) != 0;
+}
