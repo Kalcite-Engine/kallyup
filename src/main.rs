@@ -95,7 +95,7 @@ fn install(root: Option<PathBuf>, package: &str, bin: &str) -> Result<(), String
     };
     command
         .arg(repository)
-        .args(["--branch", "main", "--package", package, "--bin", bin]);
+        .args(["--branch", "main", package, "--bin", bin]);
     if let Some(root) = root {
         command.arg("--root").arg(root);
     }
