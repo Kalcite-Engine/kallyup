@@ -85,16 +85,18 @@ fn profile(value: &str) -> Option<u32> {
 
 fn install(root: Option<PathBuf>, package: &str, bin: &str) -> Result<(), String> {
     let mut command = Command::new("cargo");
-    command.args(["install", "--git", "https://github.com/Kalcite-Engine/"]);
     let repository = match package {
-        "kalcite-cli" => "kalcite.git",
-        "kally" => "kally.git",
-        "kalcite-lsp" => "kalcite-lsp.git",
-        "kalcite-editor" => "kalcite-editor.git",
+        "kalcite-cli" => "kalcite",
+        "kally" => "kally",
+        "kalcite-lsp" => "kalcite-lsp",
+        "kalcite-editor" => "kalcite-editor",
         _ => return Err(format!("unknown package {package}")),
     };
     command
-        .arg(repository)
+        .args(["install", "--git"])
+        .arg(format!(
+            "https://github.com/Kalcite-Engine/{repository}.git"
+        ))
         .args(["--branch", "main", package, "--bin", bin]);
     if let Some(root) = root {
         command.arg("--root").arg(root);
