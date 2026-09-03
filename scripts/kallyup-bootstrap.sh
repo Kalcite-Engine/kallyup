@@ -36,6 +36,17 @@ install_linux_requirements() {
     fi
 }
 
+is_nixos() {
+    [ -r /etc/os-release ] && grep -q '^ID=nixos$' /etc/os-release
+}
+
+install_nixos_requirements() {
+    command -v nix >/dev/null 2>&1 || fail "NixOS requires the nix command to bootstrap Kallyup"
+    nix --extra-experimental-features 'nix-command flakes' profile install \
+        nixpkgs#cargo nixpkgs#rustc nixpkgs#git nixpkgs#curl nixpkgs#gcc nixpkgs#pkg-config
+    export PATH="$HOME/.nix-profile/bin:$PATH"
+}
+
 has_c_compiler() {
     command -v cc >/dev/null 2>&1 || command -v clang >/dev/null 2>&1 || command -v gcc >/dev/null 2>&1
 }
@@ -46,7 +57,13 @@ ensure_system_requirements() {
     fi
 
     case "$(uname -s)" in
-        Linux) install_linux_requirements ;;
+        Linux)
+            if is_nixos; then
+                install_nixos_requirements
+            else
+                install_linux_requirements
+            fi
+            ;;
         Darwin)
             if ! command -v git >/dev/null 2>&1 || ! has_c_compiler; then
                 xcode-select --install || true
@@ -60,6 +77,11 @@ ensure_system_requirements() {
 
 ensure_rust() {
     if command -v cargo >/dev/null 2>&1; then
+        return
+    fi
+    if [ "$(uname -s)" = "Linux" ] && is_nixos; then
+        install_nixos_requirements
+        command -v cargo >/dev/null 2>&1 || fail "Nix profile installation completed but Cargo was not found"
         return
     fi
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal

@@ -38,8 +38,10 @@ irm https://raw.githubusercontent.com/Kalcite-Engine/kallyup/main/scripts/kallyu
 
 Replace `developer` with `minimal` or `full` to select another profile. Linux
 package managers supported by the shell launcher are APT, DNF, Pacman, and
-Zypper. On macOS, Apple requires the Command Line Tools dialog to be completed
-once before the script can continue.
+Zypper. On NixOS, the launcher installs Cargo, Rust, Git, Curl, a compiler and
+`pkg-config` into the user's Nix profile instead of using Rustup or a mutable
+system package manager. On macOS, Apple requires the Command Line Tools dialog
+to be completed once before the script can continue.
 
 ## Nix profiles
 
