@@ -11,6 +11,8 @@ kallyup list
 kallyup install minimal
 kallyup install developer --root "$HOME/.local"
 kallyup install full
+# Nix: keep checkouts and the Nix profile in a location you control
+kallyup install developer --nix --flakes "$HOME/.local/share/kalcite-flakes"
 ```
 
 Profiles are `minimal` (Kalcite + Kally), `developer` (+ LSP), and `full`
@@ -38,6 +40,22 @@ Replace `developer` with `minimal` or `full` to select another profile. Linux
 package managers supported by the shell launcher are APT, DNF, Pacman, and
 Zypper. On macOS, Apple requires the Command Line Tools dialog to be completed
 once before the script can continue.
+
+## Nix profiles
+
+Use Nix mode to keep the selected repositories' flakes and the resulting Nix
+profile in a directory you choose:
+
+```sh
+kallyup install full --nix --flakes "$HOME/.local/share/kalcite-flakes"
+```
+
+Kallyup clones the selected source repositories into that directory and creates
+the profile at `DIR/profile`; add `DIR/profile/bin` to `PATH`. Before it runs
+`nix profile install`, Kallyup asks whether it should refresh every flake input
+with `nix flake update`. Answering no preserves the existing locked inputs.
+For automation, pass `--refresh-flakes` or `--no-refresh-flakes` explicitly.
+Nix itself must already be installed.
 
 ## Platform notes
 
