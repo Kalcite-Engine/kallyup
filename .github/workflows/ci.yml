@@ -19,3 +19,9 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo fmt --check
       - run: cargo test --all-targets
+      - if: runner.os != 'Windows'
+        run: sh -n scripts/kallyup-bootstrap.sh
+      - if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          [void][scriptblock]::Create((Get-Content -Raw scripts/kallyup-bootstrap.ps1))

@@ -17,6 +17,31 @@ Profiles are `minimal` (Kalcite + Kally), `developer` (+ LSP), and `full`
 (+ editor). Kallyup never requests privilege escalation or edits `PATH`; it
 prints the required path action after installation.
 
+## One-command bootstrap
+
+The launchers install their host requirements when possible (Git, a native C
+build toolchain, Rustup and Cargo), install or update Kallyup, then run it.
+Pass the normal Kallyup command after the script; omitting it displays the
+available profiles.
+
+```sh
+# Linux and macOS
+curl -fsSL https://raw.githubusercontent.com/Kalcite-Engine/kallyup/main/scripts/kallyup-bootstrap.sh | sh -s -- install developer
+```
+
+```powershell
+# Windows PowerShell
+irm https://raw.githubusercontent.com/Kalcite-Engine/kallyup/main/scripts/kallyup-bootstrap.ps1 | iex
+# Or, after saving the script locally:
+.\kallyup-bootstrap.ps1 install developer
+```
+
+The PowerShell pipeline cannot safely forward arguments, so use the saved
+script form for `install minimal`, `install developer`, or `install full`.
+Linux package managers supported by the shell launcher are APT, DNF, Pacman,
+and Zypper. On macOS, Apple requires the Command Line Tools dialog to be
+completed once before the script can continue.
+
 ## Platform notes
 
 Kallyup runs anywhere Cargo and Git are available: Windows, macOS, Linux, and
